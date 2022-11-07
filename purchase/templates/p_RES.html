@@ -1,0 +1,46 @@
+{%load static%}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{%static 'purchase/css/style.css' %}">
+    <title>فاکنور</title>
+</head>
+<body>
+{%if purchase%}
+<body>
+		<!-- start checkout list -->
+		<div class="cost">
+			<h2>پیش فاکتور</h2>
+
+			<table class="pricing">
+				<tbody>
+				<tr>
+					<td>قیمت کل</td>
+					<td class="subtotal">{{package.price}}</td>
+				</tr>
+				<tr>
+					<td>مالیات</td>
+					<td class="tax"> 100000 ریال</td>
+				</tr>
+				<tr>
+					<td>کد قرعه کشی</td>
+					<td class="shipping">100000 ریال</td>
+				</tr>
+				<tr>
+					<td><strong>مجموع:</strong></td>
+					<td class="orderTotal">{{package.price}}</td>
+				</tr>
+				</tbody>
+			</table>
+			<a class="cta" href="{% url 'PurchaseDirect' purchase.payment.invoice_number %}">خرید</a>
+		</div><!-- end checkout list -->
+</body>
+{%else%}
+Fuck You
+{%endif%}
+</body>
+</html>

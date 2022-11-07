@@ -1,0 +1,28 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+  {%block head%}
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'financial/pay.css' %}" />
+  <title>{{request.user}}</title>
+  {% endblock %} {%block content%}
+  <main>
+    <section>
+      <p>title : {{payment.title}}</p>
+      <p>ID : {{payment.id}}</p>
+      <p>amount : {{payment.amount}}</p>
+      Gateways:
+           {%if gateways%}
+                   {%for gateways in gateway %}
+                   <a href="{% url 'PostGateWay' payment.invoice_number gateways.gateway_code %}">{{gateways.title}}</a>
+           {%endfor%}
+            {%else%}
+                 <a href="{% url 'PostGateWay' payment.invoice_number gateway.gateway_code %}">{{gateway.title}}</a>
+           {%endif%}
+    </section>
+  </main>
+  {% endblock %}
+</html>

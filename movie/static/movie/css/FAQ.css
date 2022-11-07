@@ -1,0 +1,73 @@
+/* start FAQ_Support  Style */
+.FAQ_Section_wrapper {
+    background: url(../background/36.jpg);
+    min-height: 500px;
+}
+
+.faq_right_side {
+    box-shadow: 1px 5px 15px 2px rgba(68, 68, 68, 68);
+    height: 350px;
+    background-color: rgb(255, 255, 255);
+    padding: 25px 50px;
+}
+
+.faq_right_side h6 span {
+    font-size: x-small;
+    vertical-align: 8px;
+    margin-right: 5px;
+}
+
+.faq_right_side p {
+    margin: 2px 32px 0 0;
+    color: rgb(78, 78, 78);
+    font-family: Vazir;
+}
+/* end FAQ_Support Style */
+/* start FAQ_Cardio_menu Style */
+.faq_left_side {
+    padding: 60px;
+}
+
+.faq_left_side .tabs {
+    border-radius: 10px;
+    box-shadow: 1px 5px 15px 2px rgba(68, 68, 68, 68);
+    overflow: hidden;
+}
+
+.faq_left_side .tab {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    overflow: hidden;
+
+}
+
+.faq_left_side .tab_label {
+    cursor: pointer;
+    width: 100%;
+    position: absolute;
+    font-size: large;
+}
+
+.faq_left_side .tab_label::after {
+    content: '؟';
+    direction: rtl;
+    margin-right: 1px;
+}
+
+.tab_content {
+    font-size: x-large;
+    max-height: 0;
+    margin: 2px 25px;
+    text-decoration: underline;
+    transition: 1s ease-in;
+}
+
+.faq_left_side input{
+    visibility: hidden;
+}
+
+.cardio:checked~.tab_content{
+    max-height: 200px;
+}
+
+/* End FAQ_Cardio_menu Style */
