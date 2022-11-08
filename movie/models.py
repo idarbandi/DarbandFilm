@@ -23,6 +23,20 @@ class Genre(models.Model):
         return self.name
 
 
+class Comment(models.Model):
+    body = models.TextField(max_length=120, null=True)
+
+    def __str__(self):
+        return self.body
+
+
+class Quality(models.Model):
+    quality = models.CharField(max_length=35, null=True)
+
+    def __str__(self):
+        return self.quality
+
+
 class Movie(models.Model):
     # INT = 1
     # STRING = 2
@@ -36,11 +50,8 @@ class Movie(models.Model):
     # )
 
     name = models.CharField(max_length=32)
-    director_id = models.ForeignKey(Director, on_delete=models.PROTECT, related_name='movies')
-    actor_id = models.ForeignKey(Actor, on_delete=models.PROTECT, related_name='actrs_movies')
     year = models.IntegerField(blank=True)
     rate = models.FloatField(blank=True)
-    genre_id = models.ForeignKey(Genre, on_delete=models.PROTECT, related_name='movies')
     age_res = models.CharField(max_length=10)
     summary = models.TextField(blank=True)
     is_active = models.BooleanField(default=True)
@@ -48,8 +59,6 @@ class Movie(models.Model):
     register_date = models.DateTimeField(default=JalaliDatetime.now)
     modify_date = models.DateTimeField(default=JalaliDatetime.now)
     platform = models.CharField(max_length=13, blank=True)
-    quality = models.CharField(max_length=50, null=True, blank=True)
-    comment = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
@@ -89,3 +98,19 @@ class MovieImages(models.Model):
 
     def __str__(self):
         return self.movie.name
+
+
+class MovieComments(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='movies')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='comments')
+
+    def __str__(self):
+        return f"{self.comment}\t{self.movie}"
+
+
+class MovieQuality(models.Model):
+    quality = models.ForeignKey(Quality, related_name='movies', on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, related_name='quality', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.quality}\t{self.movie}"

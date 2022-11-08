@@ -11,8 +11,24 @@ class ActAdmin(admin.ModelAdmin):
     list_display = ['name']
 
 
+class CommentInLine(admin.StackedInline):
+    model = MovieComments
+
+
+class QualityInline(admin.TabularInline):
+    model = MovieQuality
+
+
 class gnrAdmin(admin.ModelAdmin):
     list_display = ['name']
+
+
+class qualityAdmin(admin.ModelAdmin):
+    list_display = ['quality']
+
+
+class commentAdmin(admin.ModelAdmin):
+    list_display = ['body']
 
 
 class movieInlineActor(admin.StackedInline):
@@ -32,16 +48,18 @@ class imageInline(admin.StackedInline):
 
 
 class movieAdmin(admin.ModelAdmin):
-    list_display = ['name', 'awards', 'year', 'director_id', 'actor_id', 'summary', 'is_active']
+    list_display = ['name', 'awards', 'year', 'summary', 'is_active']
     list_filter = ['is_active']
-    inlines = [movieInlineDirector, movieInlinegenre, movieInlineActor, imageInline]
+    inlines = [movieInlineDirector, movieInlinegenre, movieInlineActor, imageInline, QualityInline, CommentInLine]
     search_fields = ['name', 'year']
 
     def has_delete_permission(self, request, obj=None):
         return True
 
 
-admin.site.register(Director, dirAdmin)
-admin.site.register(Actor, ActAdmin)
-admin.site.register(Genre, gnrAdmin)
 admin.site.register(Movie, movieAdmin)
+admin.site.register(Actor, ActAdmin)
+admin.site.register(Director, dirAdmin)
+admin.site.register(Quality, qualityAdmin)
+admin.site.register(Comment, commentAdmin)
+admin.site.register(Genre, gnrAdmin)

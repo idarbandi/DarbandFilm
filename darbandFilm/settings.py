@@ -35,6 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'financial.apps.FinancialConfig',
+    'distributer.apps.DistributerConfig',
+    'account.apps.AccountConfig',
+    'movie.apps.MovieConfig',
+    'package.apps.PackageConfig',
+    'purchase.apps.PurchaseConfig',
 
     'user',
 ]

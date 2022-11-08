@@ -1,10 +1,11 @@
-from django.contrib.auth.models import User
 from django.db import transaction
 
 from financial.models import Payment
 from package.models import Package
 
 from django.db import models
+
+from user.models import MyUser
 
 
 class Purchase(models.Model):
@@ -16,7 +17,7 @@ class Purchase(models.Model):
         (NOT_PAID, 'Not Paid')
     )
 
-    user = models.ForeignKey(User, related_name='purchases', on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, related_name='purchases', on_delete=models.CASCADE)
     package = models.ForeignKey(Package, related_name='purchase', on_delete=models.CASCADE)
     price = models.PositiveBigIntegerField()
     status = models.SmallIntegerField(choices=PAID_STATUS, default=NOT_PAID)

@@ -1,12 +1,12 @@
 import uuid
 
-from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from khayyam.jalali_datetime import JalaliDatetime
 
 from django.db import models
 
 from financial.utils.zarinpal import zarinpal_request_handler, zarinpal_payment_checker
+from user.models import MyUser
 
 
 class Gateway(models.Model):
@@ -56,7 +56,7 @@ class Payment(models.Model):
                                 null=True, blank=True)
     is_paid = models.BooleanField(verbose_name=_('is paid'), default=False)
     payment_log = models.TextField(verbose_name=_('log'), blank=True)
-    user = models.ForeignKey(User, related_name='payments', verbose_name=_('user'), on_delete=models.SET_NULL,
+    user = models.ForeignKey(MyUser, related_name='payments', verbose_name=_('user'), on_delete=models.SET_NULL,
                              null=True)
     authority = models.CharField(max_length=64, verbose_name=_('authority'), blank=True)
 

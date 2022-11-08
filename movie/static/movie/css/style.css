@@ -122,19 +122,19 @@ ol {
 
 .footer figure img {
   width: 50px;
+  position: absolute;
 }
 
 .footer figure{
   color: aliceblue;
-  position: absolute;
+  position: relative;
   margin: 20px 75%;
 }
 
-.footer span{
+.footer figure span{
   color: aliceblue;
-  margin-left: 70%;
+  margin-left: 60%;
   position: absolute;
-  top: 15%;
   font-size: x-large;
 }
 

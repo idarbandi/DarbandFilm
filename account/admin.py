@@ -1,3 +1,9 @@
 from django.contrib import admin
+from django.contrib.admin import register
 
-# Register your models here.
+from account.models import account
+
+
+@register(account)
+class AccountAdmin(admin.ModelAdmin):
+    list_display = ['user', 'package', 'expiration']
