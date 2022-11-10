@@ -5,6 +5,18 @@
   border-radius: 15px;
 }
 
+.wid100{
+word-break:none;
+}
+
+.float_r{
+float:right;
+}
+
+.float_l{
+float:left;
+}
+
 .play_button{
   top: 50%;
   left: 50%;

@@ -111,6 +111,7 @@ class MovieComments(models.Model):
 class MovieQuality(models.Model):
     quality = models.ForeignKey(Quality, related_name='movies', on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, related_name='quality', on_delete=models.CASCADE)
+    Download_links = models.TextField(max_length=1000, null=True)
 
     def __str__(self):
         return f"{self.quality}\t{self.movie}"

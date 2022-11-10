@@ -28,27 +28,27 @@
     padding: 60px;
 }
 
-.faq_left_side .tabs {
+.tabs {
     border-radius: 10px;
     box-shadow: 1px 5px 15px 2px rgba(68, 68, 68, 68);
     overflow: hidden;
 }
 
-.faq_left_side .tab {
+.tab {
     margin-top: 50px;
     margin-bottom: 50px;
     overflow: hidden;
 
 }
 
-.faq_left_side .tab_label {
+.tab_label {
     cursor: pointer;
     width: 100%;
     position: absolute;
     font-size: large;
 }
 
-.faq_left_side .tab_label::after {
+.tab_label::after {
     content: '؟';
     direction: rtl;
     margin-right: 1px;
@@ -62,7 +62,7 @@
     transition: 1s ease-in;
 }
 
-.faq_left_side input{
+.tab input{
     visibility: hidden;
 }
 

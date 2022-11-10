@@ -19,30 +19,6 @@
   {%endblock%}
   {%block content%}
     {%include 'union/Nav.html'%}
-{%load static%}
-<!-- Start Header Section -->
-    <header class="container_fluid">
-      <div class="col_xs_12 col_md_12 col_s_12 col_x_md_12 p0">
-        <figure>
-          <div class="abs overimg">
-            <div class="header_title">
-              <h1>دربند فیلم</h1>
-              <h3>بزرگترین سایت دانلود فیلم و سریال</h3>
-              <h3>بروزترین ها را از ما بخواهید</h3>
-              <a href="">مشاهده فهرست ...</a>
-            </div>
-          </div>
-          <img
-            class="img_header img_responsive"
-            src="{%static 'Desktop Wallpaper_Downloadha (27).jpg'%}"
-            alt=""
-          />
-        </figure>
-      </div>
-    </header>
-    <!-- End Header Section -->
-    {%load movie%}
-      {%feed as movie%}
     <!-- start Course Section -->
     <section class="container_fluid mt_20">
       <div class="container">
@@ -52,7 +28,7 @@
               <span class="course_title_top mt_20"> آخرین فیلمها </span>
             </h5>
             <div class="row">
-              {%for feed in movie%}
+              {%for feed in search%}
               <div class="col_xs_12 col_s_6 col_md_4 col_x_md_3">
                 <div class="card mt_20 hnd_pointer">
                   <div class="card_header rel">
@@ -67,11 +43,10 @@
                       <span class="m_l_220">{{feed.year}}</span>
                     </div>
                     <a href="">
-                      <h1><a href="{% url 'movie' feed.pk %}">{{feed.name}}</a></h1>
+                      <h1>{{feed.name}}</h1>
                     </a>
                     <img
                       class="img_responsive"
-                      href="{% url 'movie' feed.pk %}"
                       src="{% for pi in feed.images.all%} {{pi.image.url}} {% endfor %}"
                       alt="{{feed.name}}"
                     />
@@ -93,7 +68,7 @@
                       <p class="font-light silver">{{feed.register_date}}</p>
                     </div>
                     <div class="top0 abs">
-                      <p class="gr_clr wid100 font-normal m_r_220">
+                      <p class="gr_clr font-normal m_r_220">
                         {{feed.quality.first.quality}}
                       </p>
                       <div class="r_250">
@@ -108,8 +83,8 @@
                   </div>
                 </div>
               </div>
-              {%endfor%}
             </div>
+            {%endfor%}
           </div>
         </div>
       </div>

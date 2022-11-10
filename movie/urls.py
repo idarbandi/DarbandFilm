@@ -9,3 +9,4 @@ urlpatterns = [
                   path('/account/financial/', include('financial.urls')),
                   path('/account/package', include('package.urls'))
               ]
+

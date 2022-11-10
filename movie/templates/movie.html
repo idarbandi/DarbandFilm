@@ -1,0 +1,136 @@
+{%extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="fa">
+{%load static%}
+  {%block head%}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{%static 'movie/css/style.css'%}"/>
+    <link rel="stylesheet" href="{%static 'movie/css/style_grid.css'%}" />
+    <link rel="stylesheet" href="{%static 'movie/css/about.css'%}" />
+    <link rel="stylesheet" href="{%static 'movie/css/contact.css'%}" />
+    <link rel="stylesheet" href="{%static 'movie/css/Course.css'%}" />
+    <link rel="stylesheet" href="{%static 'movie/css/header.css'%}" />
+    <link rel="stylesheet" href="{%static 'movie/css/NavBar.css'%}" />
+    <link rel="stylesheet" href="{%static 'movie/css/stats.css'%}" />
+    <link rel="stylesheet" href="{%static 'movie/css/FAQ.css'%}" />
+    <title>{{feed.name}}</title>
+  {%endblock%}
+  {%block content%}
+    {%include 'union/Nav.html'%}
+<!-- Start Header Section -->
+    <header class="container_fluid">
+      <div class="col_xs_12 col_md_12 col_s_12 col_x_md_12 p0">
+        <figure>
+          <div class="abs overimg">
+            <div class="header_title">
+              <h1>دربند فیلم</h1>
+              <h3>بزرگترین سایت دانلود فیلم و سریال</h3>
+              <h3>بروزترین ها را از ما بخواهید</h3>
+              <a href="">مشاهده فهرست ...</a>
+            </div>
+          </div>
+          <img
+            class="img_header img_responsive"
+            src="{% for pi in feed.images.all%} {{pi.image.url}} {% endfor %}"
+            alt=""
+          />
+        </figure>
+      </div>
+    </header>
+    <!-- End Header Section -->
+    <!-- start Course Section -->
+    <section class="container_fluid mt_20">
+      <div class="container">
+        <div class="row">
+          <div class="course_title txt_center">
+            <h5>
+              <span class="course_title_top mt_20"> آخرین فیلمها </span>
+            </h5>
+            <div class="row">
+              <div class="col_xs_12 col_s_12 col_md_12 col_x_md_12">
+                <div class="card mt_20 hnd_pointer">
+                  <div class="card_header rel">
+                    <div class="card_over_img abs">
+                      <ul class="m_l_220" dir="rtl">
+                        بازیگران
+                        {%for actors in feed.actorsmovies.all%}
+                        <li>{{actors.actor_id}}</li>
+                        {%endfor%}
+                      </ul>
+                      <p class="mt_20 m_l_220">: سال ساخت</p>
+                      <span class="m_l_220">{{feed.year}}</span>
+                    </div>
+                    <a href="">
+                      <h1>{{feed.name}}</h1>
+                    </a>
+                    <img
+                      class="img_responsive"
+                      src="{% for pi in feed.images.all%} {{pi.image.url}} {% endfor %}"
+                      alt="{{feed.name}}"
+                    />
+                  </div>
+                  <div class="card_body rel">
+                    <div class="m_l_320 float_r font-heavy">
+                      <i
+                        ><svg
+                          class="comment"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                          <path
+                            d="M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4l0 0 0 0 0 0 0 0 .3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z"
+                          /></svg
+                        ><span>{{feed.comments.count}}</span></i
+                      >
+                      <p class="font-light silver">{{feed.register_date}}</p>
+                    </div>
+                    <div class="top0 abs">
+                      <p class="gr_clr float_l font-heavy">
+                        {{feed.quality.first.quality}}
+                      </p>
+                      <div class="font-heavy">
+                        {%for gnr in feed.genresmovies.all %}
+                        <a href=""><span>{{gnr.genre_id}}</span></a>
+                        {%endfor%}
+                      </div>
+                      <p class="font-normal float_l font-heavy">
+                        {{feed.summary}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end Course Section -->
+    <!--Download Links-->
+         <div class="tabs mt_20">
+           {%for qlty in feed.quality.all%}
+                  <div class="tab rel" dir="rtl">
+                    <input type="checkbox" class="cardio" id="chck1" />
+                    <label class="tab_label" for="chck1"
+                      >{{qlty.quality}}
+                    </label>
+                    <div class="tab_content">
+                      <a href="{{qlty.Download_links}}">دانلود</a>
+                    </div>
+                  </div>
+           {%endfor%}
+                </div>
+         </div>
+    <!--End Download Links-->
+        </div>
+      </div>
+    </section>
+    <!-- End FAQ Section -->
+    {%include 'union/footer.html'%}
+    <script src="{%static 'movie/js/main.js'%}"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+  {%endblock%}
+</html>
