@@ -9,8 +9,8 @@ class account(models.Model):
     user = models.OneToOneField(MyUser, related_name='account', on_delete=models.CASCADE)
     expiration = models.PositiveSmallIntegerField(null=True)
 
-
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         try:
             self.expiration = self.package.days
         except:
