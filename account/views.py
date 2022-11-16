@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from django.views.generic import RedirectView
 
-# Create your views here.
+
+class checkAccount(RedirectView):
+
+    def get(self, request, *args, **kwargs):
+        downlink = kwargs.get('lnk')
+        if request.user.has_account:
+            self.url = downlink
+        return super().get(request, *args, **kwargs)

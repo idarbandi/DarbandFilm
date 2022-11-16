@@ -1,10 +1,8 @@
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.views import View
-from django.conf import settings
 
 from financial.models import Payment, Gateway
-from financial.utils.zarinpal import zarinpal_payment_checker, zarinpal_request_handler
 
 
 class Pay(View):

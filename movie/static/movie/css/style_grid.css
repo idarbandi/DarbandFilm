@@ -281,6 +281,15 @@ font-family: sans-serif;
   .col_xs_offset_0 {
     margin-right: 0;
   }
+
+
+  [class^="col_"] {
+  float: right;
+  padding-left: none;
+  padding-right: none;
+  }
+
+
 }
 
 @media only screen and (min-width: 601px) and (max-width: 800px) {
@@ -387,6 +396,14 @@ font-family: sans-serif;
   .col_s_offset_0 {
     margin-right: 0;
   }
+
+
+  [class^="col_"] {
+  float: right;
+  padding-left: none;
+  padding-right: none;
+   }
+
 }
 
 @media screen and (min-width: 801px) and (max-width: 1000px) {
@@ -493,6 +510,14 @@ font-family: sans-serif;
   .col_x_md_offset_0 {
     margin-right: 0;
   }
+
+
+  [class^="col_"] {
+  float: right;
+  padding-left: none;
+  padding-right: none;
+   }
+
 }
 
 @media screen and (min-width: 1001px){
@@ -599,4 +624,11 @@ font-family: sans-serif;
   .col_md_offset_0 {
     margin-right: 0;
   }
+
+  [class^="col_"] {
+  float: right;
+  padding-left: none;
+  padding-right: none;
+}
+
 }

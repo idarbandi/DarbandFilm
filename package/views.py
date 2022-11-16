@@ -3,7 +3,7 @@ from django.views import View
 
 
 class BuyPackage(View):
-    template_name = 'index.html'
+    template_name = 'packages.html'
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)

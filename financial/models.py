@@ -80,7 +80,7 @@ class Payment(models.Model):
                     detail='خرید اشتراک',
                     user_email=self.user.email,
                     user_phone_number='0912256487',
-                    callback='http://127.0.0.1:8000/MovieCrawl/movie/account/financial/verify/')
+                    callback='http://127.0.0.1:8000/financial/verify/')
         return data
 
     def verify(self, data):

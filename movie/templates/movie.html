@@ -113,12 +113,16 @@
          <div class="tabs mt_20">
            {%for qlty in feed.quality.all%}
                   <div class="tab rel" dir="rtl">
-                    <input type="checkbox" class="cardio" id="chck1" />
-                    <label class="tab_label" for="chck1"
+                    <input type="checkbox" class="cardio" id="{{qlty.Download_links}}" />
+                    <label class="tab_label" for="{{qlty.Download_links}}"
                       >{{qlty.quality}}
                     </label>
                     <div class="tab_content">
+                      {%if request.user.has_account%}
                       <a href="{{qlty.Download_links}}">دانلود</a>
+                      {%else%}
+                      <a href="{% url 'BuyPackage' %}">خرید اشتراک</a>
+                      {%endif%}
                     </div>
                   </div>
            {%endfor%}
