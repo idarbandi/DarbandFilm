@@ -5,20 +5,17 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_GET
 from django.views import View
-from django.views.generic import DetailView, FormView, ListView
+from django.views.generic import DetailView, FormView, ListView, CreateView
 
-from movie.models import Movie
-
-
-# Create your views here.
+from movie.forms import MovieCommentForm
+from movie.models import Movie, MovieComments
 
 
 class main(View):
     template_name = "index.html"
-    qset = Count('comment')
 
     def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {"count": self.qset})
+        return render(request, self.template_name)
 
 
 class movie(LoginRequiredMixin, DetailView):
@@ -35,7 +32,7 @@ class movie(LoginRequiredMixin, DetailView):
 
 class Search(ListView):
     model = Movie
-    template_name = 'search.html'
+    template_name = 'index.html'
     context_object_name = 'search'
 
     def get_queryset(self):
@@ -43,3 +40,8 @@ class Search(ListView):
         movie_name = self.request.GET.get('box', None)
         print(self.request.GET.get('box', None))
         return qs.filter(name__icontains=movie_name)
+
+
+class Comment(CreateView):
+    model = MovieComments
+    form_class = MovieCommentForm

@@ -6,100 +6,326 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{%static 'movie/css/style.css'%}"/>
-    <link rel="stylesheet" href="{%static 'movie/css/style_grid.css'%}" />
-    <link rel="stylesheet" href="{%static 'movie/css/about.css'%}" />
-    <link rel="stylesheet" href="{%static 'movie/css/contact.css'%}" />
-    <link rel="stylesheet" href="{%static 'movie/css/Course.css'%}" />
-    <link rel="stylesheet" href="{%static 'movie/css/header.css'%}" />
-    <link rel="stylesheet" href="{%static 'movie/css/NavBar.css'%}" />
-    <link rel="stylesheet" href="{%static 'movie/css/stats.css'%}" />
-    <link rel="stylesheet" href="{%static 'movie/css/FAQ.css'%}" />
-    <title>{{feed.name}}</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'movie/css/bootstrap-grid.rtl.min.css'%}"
+    />
+    <link rel="stylesheet" href="{% static 'movie/css/bootstrap.min.css'%}" />
+    <script
+      src="https://kit.fontawesome.com/ffcf394c72.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static 'movie/css/style.css' %}"/>
+    <title>دانلود فیلم {{feed.name}}</title>
   {%endblock%}
   {%block content%}
-    {%include 'union/Nav.html'%}
-<!-- Start Header Section -->
-    <header class="container_fluid">
-      <div class="col_xs_12 col_md_12 col_s_12 col_x_md_12 p0">
-        <figure>
-          <div class="abs overimg">
-            <div class="header_title">
-              <h1>دربند فیلم</h1>
-              <h3>بزرگترین سایت دانلود فیلم و سریال</h3>
-              <h3>بروزترین ها را از ما بخواهید</h3>
-              <a href="">مشاهده فهرست ...</a>
+  {%include 'union/Nav.html'%}
+<!-- Start Content -->
+    <section class="text-center">
+        <section class="row">
+          <section class="card bg-light col-12 h5 mt-5">
+            <section class="card mt-5">
+              <section class="card-header">
+                <a href="">
+                  <h1 class="card-title">{{feed.name}}</h1>
+                </a>
+                <img
+                  class="card-img"
+                  src="{% for pi in feed.images.all%} {{pi.image.url}} {% endfor %}"
+                  alt="{{feed.name}}"
+                />
+              </section>
+              <section class="card_body table-bordered text-left">
+                <section class="card-text text-right">
+                  <i
+                    ><svg
+                      class="comment"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512"
+                    >
+                      <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                      <path
+                        d="M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4l0 0 0 0 0 0 0 0 .3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z"
+                      /></svg
+                    ><span>{{feed.comments.count}}</span></i
+                  >
+                  <p class="text-success">{{feed.register_date}}</p>
+                </section>
+                <section>
+                  <p class="text-muted">{{feed.quality.first.quality}}</p>
+                  <section>
+                    {%for gnr in feed.genresmovies.all %}
+                    <a href=""><span>{{gnr.genre_id}}</span></a>
+                    {% endfor %}
+                  </section>
+                  <p>
+                    {{feed.summary}}
+                  </p>
+                </section>
+              </section>
+              <section class="card-footer">
+                <!-- start Download Links -->
+                {%for qlty in feed.quality.all%}
+                <p>
+                  <a
+                    class="btn btn-warning w-100 font-monospace text-xl-start"
+                    data-bs-toggle="collapse"
+                    href="#{{qlty.quality}}"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                  >
+                    {{qlty.quality}}
+                  </a>
+                </p>
+                <div class="collapse" id="{{qlty.quality}}">
+                  <div class="card card-body">
+                    {% if request.user.has_account%}
+                    <a href="{{qlty.Download_links}}">دانلود</a>
+                    {% else %}
+                    <a href="{% url 'BuyPackage'%}">خرید اشتراک</a>
+                    {% endif %}
+                  </div>
+                </div>
+                {%endfor%}
+                <!-- End Download Links -->
+              </section>
+            </section>
+          </section>
+        </section>
+      </section>
+    <!-- End Content -->
+    <span class="badge rounded-pill text-bg-primary mt-5 w-100 opacity-50"
+      >نظرات</span
+    >
+    <!-- Start Add Comment -->
+       {% load MovieComments %}
+           {% load crispy_forms_tags %}
+    <div class="container-fluid my-5 py-5 text-dark">
+      <div class="row d-flex justify-content-start rounded-5">
+        <div class="col">
+          <div class="card rounded-5">
+            <div class="card-body p-4">
+              <div class="d-flex flex-start w-100">
+                <img
+                  class="rounded-circle shadow-1-strong me-3"
+                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(21).webp"
+                  alt="avatar"
+                  width="65"
+                  height="65"
+                />
+                <div class="w-100">
+                  <h5>افزودن نظر</h5>
+                  <ul class="rating mb-3" data-mdb-toggle="rating">
+                    <li>
+                      <i class="far fa-star fa-sm text-danger" title="Bad"></i>
+                    </li>
+                    <li>
+                      <i class="far fa-star fa-sm text-danger" title="Poor"></i>
+                    </li>
+                    <li>
+                      <i class="far fa-star fa-sm text-danger" title="OK"></i>
+                    </li>
+                    <li>
+                      <i class="far fa-star fa-sm text-danger" title="Good"></i>
+                    </li>
+                    <li>
+                      <i
+                        class="far fa-star fa-sm text-danger"
+                        title="Excellent"
+                      ></i>
+                    </li>
+                  </ul>
+                  <div class="form-outline">
+                    {%comment as form%}
+                        {% csrf_token %}
+                    <textarea
+                      class="form-control rounded-5"
+                      id="textAreaExample"
+                      rows="4"
+                    >{{ form.Comment | as_crispy_field }}</textarea>
+                    <label
+                      class="form-label text-muted small"
+                      for="textAreaExample"
+                      >دیدگاه خود را بیان کنید</label
+                    >
+                  </div>
+                  <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-danger">
+                      صرف نظر<i class="fas fa-long-arrow-alt-right ms-1"></i>
+                    </button>
+                    <button type="button" class="btn btn-success">ارسال</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <img
-            class="img_header img_responsive"
-            src="{% for pi in feed.images.all%} {{pi.image.url}} {% endfor %}"
-            alt=""
-          />
-        </figure>
+        </div>
       </div>
-    </header>
-    <!-- End Header Section -->
-    <!-- start Course Section -->
-    <section class="container_fluid mt_20">
-      <div class="container">
-        <div class="row">
-          <div class="course_title txt_center">
-            <h5>
-              <span class="course_title_top mt_20"> آخرین فیلمها </span>
-            </h5>
-            <div class="row">
-              <div class="col_xs_12 col_s_12 col_md_12 col_x_md_12">
-                <div class="card mt_20 hnd_pointer">
-                  <div class="card_header rel">
-                    <div class="card_over_img abs">
-                      <ul class="m_l_220" dir="rtl">
-                        بازیگران
-                        {%for actors in feed.actorsmovies.all%}
-                        <li>{{actors.actor_id}}</li>
-                        {%endfor%}
-                      </ul>
-                      <p class="mt_20 m_l_220">: سال ساخت</p>
-                      <span class="m_l_220">{{feed.year}}</span>
+    </div>
+    <!-- End Add Comment -->
+    <!-- Start Comments -->
+    <section>
+      <div class="container-fluid my-5 py-5">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-lg-12">
+            <div class="card text-dark rounded-5">
+              <div class="card-body p-4">
+                <h4 class="mb-0">مشاهده نظرات</h4>
+                <p class="fw-light mb-4 pb-2">
+                  <span>15</span> کاربر نظر ثبت کرده اند
+                </p>
+
+                <div class="d-flex flex-start">
+                  <img
+                    class="rounded-circle shadow-1-strong me-3"
+                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp"
+                    alt="avatar"
+                    width="60"
+                    height="60"
+                  />
+                  <div>
+                    <h6 class="fw-bold mb-1">Maggie Marsh</h6>
+                    <div class="d-flex align-items-center mb-3">
+                      <p class="mb-0">
+                        March 07, 2021
+                        <span class="badge bg-primary">Pending</span>
+                      </p>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-pencil-alt ms-2"></i
+                      ></a>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-redo-alt ms-2"></i
+                      ></a>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-heart ms-2"></i
+                      ></a>
                     </div>
-                    <a href="">
-                      <h1>{{feed.name}}</h1>
-                    </a>
-                    <img
-                      class="img_responsive"
-                      src="{% for pi in feed.images.all%} {{pi.image.url}} {% endfor %}"
-                      alt="{{feed.name}}"
-                    />
+                    <p class="mb-0">
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the 1500s, when an unknown
+                      printer took a galley of type and scrambled it.
+                    </p>
                   </div>
-                  <div class="card_body rel">
-                    <div class="m_l_320 float_r font-heavy">
-                      <i
-                        ><svg
-                          class="comment"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 512 512"
-                        >
-                          <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                          <path
-                            d="M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4l0 0 0 0 0 0 0 0 .3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z"
-                          /></svg
-                        ><span>{{feed.comments.count}}</span></i
-                      >
-                      <p class="font-light silver">{{feed.register_date}}</p>
-                    </div>
-                    <div class="top0 abs">
-                      <p class="gr_clr float_l font-heavy">
-                        {{feed.quality.first.quality}}
+                </div>
+              </div>
+
+              <hr class="my-0" />
+
+              <div class="card-body p-4">
+                <div class="d-flex flex-start">
+                  <img
+                    class="rounded-circle shadow-1-strong me-3"
+                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(26).webp"
+                    alt="avatar"
+                    width="60"
+                    height="60"
+                  />
+                  <div>
+                    <h6 class="fw-bold mb-1">Lara Stewart</h6>
+                    <div class="d-flex align-items-center mb-3">
+                      <p class="mb-0">
+                        March 15, 2021
+                        <span class="badge bg-success">Approved</span>
                       </p>
-                      <div class="font-heavy">
-                        {%for gnr in feed.genresmovies.all %}
-                        <a href=""><span>{{gnr.genre_id}}</span></a>
-                        {%endfor%}
-                      </div>
-                      <p class="font-normal float_l font-heavy">
-                        {{feed.summary}}
-                      </p>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-pencil-alt ms-2"></i
+                      ></a>
+                      <a href="#!" class="text-success"
+                        ><i class="fas fa-redo-alt ms-2"></i
+                      ></a>
+                      <a href="#!" class="link-danger"
+                        ><i class="fas fa-heart ms-2"></i
+                      ></a>
                     </div>
+                    <p class="mb-0">
+                      Contrary to popular belief, Lorem Ipsum is not simply
+                      random text. It has roots in a piece of classical Latin
+                      literature from 45 BC, making it over 2000 years old.
+                      Richard McClintock, a Latin professor at Hampden-Sydney
+                      College in Virginia, looked up one of the more obscure
+                      Latin words, consectetur, from a Lorem Ipsum passage, and
+                      going through the cites.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="my-0" style="height: 1px" />
+
+              <div class="card-body p-4">
+                <div class="d-flex flex-start">
+                  <img
+                    class="rounded-circle shadow-1-strong me-3"
+                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(33).webp"
+                    alt="avatar"
+                    width="60"
+                    height="60"
+                  />
+                  <div>
+                    <h6 class="fw-bold mb-1">Alexa Bennett</h6>
+                    <div class="d-flex align-items-center mb-3">
+                      <p class="mb-0">
+                        March 24, 2021
+                        <span class="badge bg-danger">Rejected</span>
+                      </p>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-pencil-alt ms-2"></i
+                      ></a>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-redo-alt ms-2"></i
+                      ></a>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-heart ms-2"></i
+                      ></a>
+                    </div>
+                    <p class="mb-0">
+                      There are many variations of passages of Lorem Ipsum
+                      available, but the majority have suffered alteration in
+                      some form, by injected humour, or randomised words which
+                      don't look even slightly believable. If you are going to
+                      use a passage of Lorem Ipsum, you need to be sure.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="my-0" />
+
+              <div class="card-body p-4">
+                <div class="d-flex flex-start">
+                  <img
+                    class="rounded-circle shadow-1-strong me-3"
+                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(24).webp"
+                    alt="avatar"
+                    width="60"
+                    height="60"
+                  />
+                  <div>
+                    <h6 class="fw-bold mb-1">Betty Walker</h6>
+                    <div class="d-flex align-items-center mb-3">
+                      <p class="mb-0">
+                        March 30, 2021
+                        <span class="badge bg-primary">Pending</span>
+                      </p>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-pencil-alt ms-2"></i
+                      ></a>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-redo-alt ms-2"></i
+                      ></a>
+                      <a href="#!" class="link-muted"
+                        ><i class="fas fa-heart ms-2"></i
+                      ></a>
+                    </div>
+                    <p class="mb-0">
+                      It uses a dictionary of over 200 Latin words, combined
+                      with a handful of model sentence structures, to generate
+                      Lorem Ipsum which looks reasonable. The generated Lorem
+                      Ipsum is therefore always free from repetition, injected
+                      humour, or non-characteristic words etc.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -108,33 +334,12 @@
         </div>
       </div>
     </section>
-    <!-- end Course Section -->
-    <!--Download Links-->
-         <div class="tabs mt_20">
-           {%for qlty in feed.quality.all%}
-                  <div class="tab rel" dir="rtl">
-                    <input type="checkbox" class="cardio" id="{{qlty.Download_links}}" />
-                    <label class="tab_label" for="{{qlty.Download_links}}"
-                      >{{qlty.quality}}
-                    </label>
-                    <div class="tab_content">
-                      {%if request.user.has_account%}
-                      <a href="{{qlty.Download_links}}">دانلود</a>
-                      {%else%}
-                      <a href="{% url 'BuyPackage' %}">خرید اشتراک</a>
-                      {%endif%}
-                    </div>
-                  </div>
-           {%endfor%}
-                </div>
-         </div>
-    <!--End Download Links-->
-        </div>
-      </div>
-    </section>
-    <!-- End FAQ Section -->
+    <!-- End Comments -->
+
     {%include 'union/footer.html'%}
-    <script src="{%static 'movie/js/main.js'%}"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+    <script src="{% static 'movie/js/jquery-3.4.1.slim.min.js'%}"></script>
+    <script src="{% static 'movie/js/jquery.min.3.3.1.js' %}"></script>
+    <script src="{% static 'movie/js/popper.min.js'%}"></script>
+    <script src="{% static 'movie/js/bootstrap.bundle.min.js'%}"></script>
   {%endblock%}
 </html>
