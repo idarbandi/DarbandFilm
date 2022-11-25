@@ -1,5 +1,9 @@
+import uuid
+
 from django.db import models
 from khayyam.jalali_datetime import JalaliDatetime
+
+from user.models import MyUser
 
 
 class Director(models.Model):
@@ -21,13 +25,6 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Comment(models.Model):
-    body = models.TextField(max_length=120, null=True)
-
-    def __str__(self):
-        return self.body
 
 
 class Quality(models.Model):
@@ -84,6 +81,15 @@ class ActorMovie(models.Model):
         return f"{self.actor_id} , {self.movie_id}"
 
 
+class Comment(models.Model):
+    body = models.TextField(max_length=12000, null=True)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='comments')
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='comments')
+
+    def __str__(self):
+        return self.body
+
+
 class GenreMovie(models.Model):
     genre_id = models.ForeignKey(Genre, on_delete=models.PROTECT, related_name='moviegenres')
     movie_id = models.ForeignKey(Movie, on_delete=models.PROTECT, related_name='genresmovies')
@@ -98,14 +104,6 @@ class MovieImages(models.Model):
 
     def __str__(self):
         return self.movie.name
-
-
-class MovieComments(models.Model):
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='movies')
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='comments')
-
-    def __str__(self):
-        return f"{self.comment}\t{self.movie}"
 
 
 class MovieQuality(models.Model):

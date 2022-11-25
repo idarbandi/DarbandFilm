@@ -30,9 +30,10 @@
 
 
 *{
-  direction: rtl; !important
-  font-family: Vazir; !important
+  font-family: Vazir;
+  direction : rtl; !important
 }
+
 
 .top_menu .row ul {
   display: flex;

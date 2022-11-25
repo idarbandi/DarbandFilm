@@ -11,10 +11,6 @@ class ActAdmin(admin.ModelAdmin):
     list_display = ['name']
 
 
-class CommentInLine(admin.StackedInline):
-    model = MovieComments
-
-
 class QualityInline(admin.TabularInline):
     model = MovieQuality
 
@@ -50,7 +46,7 @@ class imageInline(admin.StackedInline):
 class movieAdmin(admin.ModelAdmin):
     list_display = ['name', 'awards', 'year', 'summary', 'is_active']
     list_filter = ['is_active']
-    inlines = [movieInlineDirector, movieInlinegenre, movieInlineActor, imageInline, QualityInline, CommentInLine]
+    inlines = [movieInlineDirector, movieInlinegenre, movieInlineActor, imageInline, QualityInline]
     search_fields = ['name', 'year']
 
     def has_delete_permission(self, request, obj=None):

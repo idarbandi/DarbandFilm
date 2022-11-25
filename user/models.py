@@ -11,6 +11,7 @@ class MyUser(AbstractUser):
     email = models.EmailField(verbose_name="ایمیل")
     phone = PhoneNumberField(verbose_name="شماره تلفن", region='IR', null=True, blank=True, unique=True)
     has_account = models.BooleanField(default=False)
+    Profile_pic = models.ImageField(blank=True, null=True, upload_to='Profile_pic/')
 
     # add additional fields in here
 

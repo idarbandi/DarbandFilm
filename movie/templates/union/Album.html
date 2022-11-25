@@ -286,11 +286,18 @@
             class="carousel slide carousel-fade"
             data-bs-ride="carousel"
           >
+            <div class="carousel-item active">
+                <div class="carousel-caption d-none d-md-block bottom-0">
+                  <h5>{{pi.movie.name}}</h5>
+                  <h3>({{ pi.movie.year }})</h3>
+                  <p>{{pi.movie.summary}}</p>
+                </div>
+              </div>
             <div class="carousel-inner">
               {% load Movie_Images %}
               {% images as image%}
               {% for pi in image%}
-              <div class="carousel-item active">
+              <div class="carousel-item">
                 <img
                   src="{{pi.image.url}}"
                   height="667px"

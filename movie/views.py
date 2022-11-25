@@ -8,7 +8,7 @@ from django.views import View
 from django.views.generic import DetailView, FormView, ListView, CreateView
 
 from movie.forms import MovieCommentForm
-from movie.models import Movie, MovieComments
+from movie.models import Movie, Comment
 
 
 class main(View):
@@ -42,6 +42,14 @@ class Search(ListView):
         return qs.filter(name__icontains=movie_name)
 
 
-class Comment(CreateView):
-    model = MovieComments
+class comment(CreateView):
+    model = Comment
     form_class = MovieCommentForm
+
+    def form_valid(self, form):
+        userless = form.save(commit=False)
+        userless.movie = Movie.objects.get(name=self.request.POST.get("movie"))
+        userless.user = self.request.user
+        self.success_url = self.request.POST.get('next')
+        userless.save()
+        return super().form_valid(form)
