@@ -16,7 +16,7 @@
   ></script>
   <link rel="stylesheet" href="{% static 'movie/css/style.css' %}" />
   <title>دربند فیلم</title>
-  {%endblock%} {%block content%} {%include 'union/Nav.html'%} {% include 'union/Album.html'%} {%load movie%} {% if search %}
+  {%endblock%} {%block content%} {%include 'union/Nav.html'%} {% include 'union/Album.html'%} {% if search %}
   <!-- Start Content -->
   <section>
     <section class="container-fluid text-center">
@@ -79,7 +79,7 @@
     </section>
   </section>
   <!-- End Content -->
-  {% else %} {% feed as movie %} {% endif%}
+  {% else %} {% endif%}
   <!-- Start Content -->
   <section>
     <section class="container-fluid text-center">
@@ -140,23 +140,28 @@
       </section>
     </section>
   </section>
-  <nav aria-label="Page navigation">
+  <nav aria-label="Page navigation" dir="rtl">
     <ul class="pagination mt-5 justify-content-center">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" aria-label="Previous">
+      {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
+      {% endif %}
       <li class="page-item active" aria-current="page">
-        <a class="page-link" href="#">1</a>
+        <a class="page-link" href="#">{{ page_obj.number }}</a>
       </li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+      <li class="page-item"><p class="page-link">...</p></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
       <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
+      {% endif %}
     </ul>
   </nav>
   <!-- End Content -->

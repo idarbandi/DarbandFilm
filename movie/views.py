@@ -11,11 +11,11 @@ from movie.forms import MovieCommentForm
 from movie.models import Movie, Comment
 
 
-class main(View):
-    template_name = "index.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name)
+class main(ListView):
+    template_name = 'index.html'
+    model = Movie
+    paginate_by = 3
+    context_object_name = 'movie'
 
 
 class movie(LoginRequiredMixin, DetailView):
