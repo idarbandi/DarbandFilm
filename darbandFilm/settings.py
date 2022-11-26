@@ -126,6 +126,11 @@ ZARINPAL = {
     'merchant_id': 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX',
 }
 
+
+CELERY_TIMEZONE = 'Asia/Tehran'
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 

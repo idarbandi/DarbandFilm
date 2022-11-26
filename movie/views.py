@@ -1,10 +1,4 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count
-from django.shortcuts import render
-from django.utils.decorators import method_decorator
-from django.views.decorators.http import require_GET
-from django.views import View
 from django.views.generic import DetailView, FormView, ListView, CreateView
 
 from movie.forms import MovieCommentForm
