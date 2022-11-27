@@ -6,7 +6,7 @@ from movie.models import Comment
 class MovieCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        exclude = ('movie', 'user')
+        exclude = ('movie', 'user', 'created_time')
         labels = ({'body': 'ثبت نظر :'})
         widgets = {
             'body': forms.Textarea(attrs={

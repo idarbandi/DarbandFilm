@@ -1,6 +1,7 @@
 import uuid
 
 from django.db import models
+from django.urls import reverse
 from khayyam.jalali_datetime import JalaliDatetime
 
 from user.models import MyUser
@@ -86,6 +87,9 @@ class Comment(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='comments')
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='comments')
 
+    created_time = models.DateTimeField(default=str(JalaliDatetime.now()))
+
+
     def __str__(self):
         return self.body
 
@@ -113,3 +117,4 @@ class MovieQuality(models.Model):
 
     def __str__(self):
         return f"{self.quality}\t{self.movie}"
+

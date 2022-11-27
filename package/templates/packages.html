@@ -31,6 +31,7 @@
                 <p class="plan-price">
                   {{account.price}} هزار تومان
                   <span class="plan-unit">{{account.days}} روزه</span>
+                  <span class="plan-unit text-danger text-decoration-underline">({{account.account.remaining_days}} روز دیگر باقی مانده)</span>
                 </p>
                 <ul class="plan-features">
                   {%for plan in account.benefits.all%}

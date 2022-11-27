@@ -6,4 +6,4 @@ from account.models import account
 
 @register(account)
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ['user', 'package', 'expiration']
+    list_display = ['user', 'package', 'days', 'remaining_days', 'expired']
