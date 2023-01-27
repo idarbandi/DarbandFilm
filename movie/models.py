@@ -118,3 +118,8 @@ class MovieQuality(models.Model):
     def __str__(self):
         return f"{self.quality}\t{self.movie}"
 
+
+class Trailer(models.Model):
+    name = models.CharField(max_length=70)
+    file = models.FilePathField(allow_files=True, path='media/trailers')
+    summary = models.TextField(max_length=300)

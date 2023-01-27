@@ -53,9 +53,14 @@ class movieAdmin(admin.ModelAdmin):
         return True
 
 
+class TrailerAdmin(admin.ModelAdmin):
+    list_display = ['name', 'file', 'summary']
+
+
 admin.site.register(Movie, movieAdmin)
 admin.site.register(Actor, ActAdmin)
 admin.site.register(Director, dirAdmin)
 admin.site.register(Quality, qualityAdmin)
 admin.site.register(Comment, commentAdmin)
 admin.site.register(Genre, gnrAdmin)
+admin.site.register(Trailer, TrailerAdmin)

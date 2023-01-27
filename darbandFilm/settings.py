@@ -27,6 +27,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django_celery_beat',
+     'adminlte3',
+    'adminlte3_theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -19,30 +19,6 @@
   {%endblock%} {%block content%} {%include 'union/Nav.html'%}
   <!-- Start Content -->
   <section class="container-fluid text-center">
-        <!-- Start toast -->
-<div dir="ltr" class="toast-container position-fixed top-0 end-0 p-3">
-  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header bg-info">
-      <div class="d-flex justify-content-center align-items-center">
-        <div class="d-flex justify-content-center align-items-center">
-          <div class="spinner-border text-primary spinner-border-sm"
-            role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      </div>
-      <strong class="me-auto">Logged In</strong>
-      <small>{{request.user.username.last_login}}</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body text-center">
-      Successfully Logged In , Wellcome {{request.user.username}}
-    </div>
-  </div>
-</div>
-<script src="bootstrap-5.2.2-dist/js/toast.js"></script>
-    <!-- End toast -->
-
     <section class="row">
       <section class="card bg-light col-12 h5 mt-5">
         <section class="card mt-5">
@@ -122,69 +98,12 @@
                         >
                         {% else %}
                         <!-- Button trigger modal -->
-                        <a href="#modalId" data-bs-toggle="modal">دانلود</a>
+                        <a href="javascript:void()" onclick="btnfire()">دانلود</a>
+                        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <script src="sweetalert2.all.min.js"></script>
+                        <script src="sweetalert2.min.js"></script>
+                        <link rel="stylesheet" href="sweetalert2.min.css">
                         {% endif %}
-                        <!-- Modal -->
-                        <div
-                          class="modal fade"
-                          id="modalId"
-                          tabindex="-1"
-                          role="dialog"
-                          aria-labelledby="modalTitleId"
-                          aria-hidden="true"
-                        >
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="modalTitleId"></h5>
-                                <button
-                                  type="button"
-                                  class="btn-close"
-                                  data-bs-dismiss="modal"
-                                  aria-label="Close"
-                                ></button>
-                              </div>
-                              <div class="modal-body">
-                                <div class="container-fluid">
-                                  شما در حال حاضر اشتراک فعالی ندارید
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button
-                                  type="button"
-                                  class="btn btn-secondary"
-                                  data-bs-dismiss="modal"
-                                >
-                                  بازگشت
-                                </button>
-                                <button type="button" class="btn btn-primary">
-                                  <a
-                                    class="link-light text-decoration-none"
-                                    href="{% url 'BuyPackage'%}"
-                                    >خرید اشتراک</a
-                                  >
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <script>
-                          var modalId = document.getElementById("modalId");
-
-                          modalId.addEventListener(
-                            "show.bs.modal",
-                            function (event) {
-                              // Button that triggered the modal
-                              let button = event.relatedTarget;
-                              // Extract info from data-bs-* attributes
-                              let recipient =
-                                button.getAttribute("data-bs-whatever");
-
-                              // Use above variables to manipulate the DOM
-                            }
-                          );
-                        </script>
                       </div>
                     </div>
                   </div>
@@ -254,7 +173,8 @@
                     <button type="button" class="btn btn-danger">
                       صرف نظر<i class="fas fa-long-arrow-alt-right ms-1"></i>
                     </button>
-                    <button type="submit" class="btn btn-success">ارسال</button>
+                    <button type="submit" data-bs-target="javascript:void()" onsubmit="ajax_comment()" onclick="CommentDone()" class="btn btn-success">ارسال</button>
+                  </div>
                   </form>
                   </div>
                 </div>

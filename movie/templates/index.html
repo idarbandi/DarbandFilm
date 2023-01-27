@@ -9,12 +9,8 @@
     rel="stylesheet"
     href="{% static 'movie/css/bootstrap-grid.rtl.min.css'%}"
   />
-  <link rel="stylesheet" href="{% static 'movie/css/bootstrap.min.css'%}" />
-  <script
-    src="https://kit.fontawesome.com/ffcf394c72.js"
-    crossorigin="anonymous"
-  ></script>
   <link rel="stylesheet" href="{% static 'movie/css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'movie/css/bootstrap.min.css'%}" />
   <title>دربند فیلم</title>
   {%endblock%} {%block content%} {%include 'union/Nav.html'%} {% include 'union/Album.html'%} {% if search %}
   <!-- Start Content -->
@@ -68,7 +64,7 @@
               </section>
             </section>
             <a
-              href="{% url 'movie' feed.pk %}"
+              href="{% url 'movie' feed.name %}"
               class="btn btn-outline-primary mb-1 border-bottom-0 border-end-0 border-start-0"
               >More</a
             >
@@ -92,13 +88,14 @@
             class="card mt-5 rounded-5 border-opacity-75 overflow-hidden"
           >
             <section class="card-header">
-              <a class="text-decoration-none" href="{% url 'movie' feed.pk %}">
+              <a class="text-decoration-none" href="{% url 'movie' feed.name %}">
                 <h1 class="card-title">{{feed.name}}</h1>
               </a>
               <img
                 class="card-img-top rounded-5"
                 src="{% for pi in feed.images.all%} {{pi.image.url}} {% endfor %}"
                 alt="{{feed.name}}"
+                height="250px"
               />
             </section>
             <section class="card_body text-left">
@@ -126,11 +123,11 @@
                   >
                   {%endfor%}
                 </section>
-                <p>{{feed.summary}}</p>
+                <p class="summary">{{feed.summary}}</p>
               </section>
             </section>
             <a
-              href="{% url 'movie' feed.pk %}"
+              href="{% url 'movie' feed.name %}"
               class="btn btn-outline-primary mb-1 border-bottom-0 border-end-0 border-start-0"
               >More</a
             >
@@ -167,9 +164,26 @@
   <!-- End Content -->
   {%include 'union/Trailers.html'%} {%include 'union/Stats.html'%}
   {%include 'union/footer.html'%}
+  <script
+    src="https://kit.fontawesome.com/ffcf394c72.js"
+    crossorigin="anonymous"
+  ></script>
   <script src="{% static 'movie/js/jquery-3.4.1.slim.min.js'%}"></script>
   <script src="{% static 'movie/js/jquery.min.3.3.1.js' %}"></script>
   <script src="{% static 'movie/js/popper.min.js'%}"></script>
   <script src="{% static 'movie/js/bootstrap.bundle.min.js'%}"></script>
+  <script>
+    if (document.cookie === ig6wht956hpkfcf7ihsins86390go13v){alert("fuck")};
+  </script>
+  <script>
+  function CommentDone() {
+                      Swal.fire({
+                      position: 'center',
+                      icon: 'success',
+                      title: 'نظر شما با موفقیت ثبت شد',
+                      showConfirmButton: false,
+                      timer: 1500 });
+                      }
+  </script>
   {%endblock%}
 </html>
